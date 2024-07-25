@@ -16,11 +16,9 @@
 
 /* %%%-SFUNWIZ_wrapper_includes_Changes_BEGIN --- EDIT HERE TO _END */
 #include <math.h>
-//#include <stdbool.h>
 /* %%%-SFUNWIZ_wrapper_includes_Changes_END --- EDIT HERE TO _BEGIN */
 #define u_width 1
 #define u_1_width 1
-#define u_2_width 1
 #define y_width 1
 
 /*
@@ -35,20 +33,13 @@
  * Output function
  *
  */
-void myTestFunctionMultInput_Outputs_wrapper(const real_T *currentReplicas,
-			const real_T *desiredMetricValues,
-			const real_T *signalError,
-			real_T *desiredReplicas)
+void MyFunctionPlanta_Outputs_wrapper(const real_T *nodosAProduccion,
+			const real_T *trxXSeg,
+			real_T *usoCPU)
 {
 /* %%%-SFUNWIZ_wrapper_Outputs_Changes_BEGIN --- EDIT HERE TO _END */
-double currentMetricValue = 0;
-double calculatedSignalError= *signalError;
-if ( *signalError == *desiredMetricValues  ) {
-    calculatedSignalError = *desiredMetricValues - 1 ;
-}
-
-currentMetricValue = *desiredMetricValues -  calculatedSignalError ;
-*desiredReplicas = ceil( *currentReplicas * ( currentMetricValue / *desiredMetricValues) );
+double capacidadTotal = *nodosAProduccion * 500;  
+    *usoCPU = (*trxXSeg / capacidadTotal) * 100 ;    
 /* This sample sets the output equal to the input
       y0[0] = u0[0]; 
  For complex signals use: y0[0].re = u0[0].re; 
