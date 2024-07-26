@@ -47,8 +47,14 @@ if ( *signalError == *desiredMetricValues  ) {
     calculatedSignalError = *desiredMetricValues - 1 ;
 }
 
-currentMetricValue = *desiredMetricValues -  calculatedSignalError ;
-*desiredReplicas = ceil( *currentReplicas * ( currentMetricValue / *desiredMetricValues) );
+if(desiredMetricValues != 0){
+    currentMetricValue = *desiredMetricValues -  calculatedSignalError ;
+    *desiredReplicas = ceil( *currentReplicas * ( currentMetricValue / *desiredMetricValues) );
+} else {
+    *desiredReplicas = *currentReplicas
+}
+
+
 /* This sample sets the output equal to the input
       y0[0] = u0[0]; 
  For complex signals use: y0[0].re = u0[0].re; 
